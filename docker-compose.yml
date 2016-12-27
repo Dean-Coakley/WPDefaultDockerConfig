@@ -21,3 +21,17 @@ services:
       - ./mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: DEFAULT
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+     - 8083:80
+    volumes:
+     - /sessions
