@@ -3,7 +3,7 @@ version: '2'
 services:
 
   wordpress:
-    image: wordpress:4.7.0-apache
+    image: wordpress:4.7.5-php7.1-apache
     ports:
       - 8080:80
     volumes:
