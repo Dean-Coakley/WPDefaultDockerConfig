@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+
+  wordpress:
+    image: wordpress:4.7.5-php7.1-apache
+    mem_limit: 524288000
+    cpu_shares: 100
+    ports:
+      - 8080:80
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+    links:
+      - mysql
+    environment:
+      WORDPRESS_DB_PASSWORD: DEFAULT
+
+  mysql:
+    image: mariadb:10.1.19
+    mem_limit: 524288000
+    cpu_shares: 100
+    ports:
+      - 8081:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: DEFAULT
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    mem_limit: 524288000
+    cpu_shares: 100
+    container_name: phpmyadmin
+    restart: always
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+     - 8083:80
+    volumes:
+     - /sessions
